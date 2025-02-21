@@ -1,6 +1,6 @@
 # Kurama Admin
 
-Projeto de um Nodejs, React e AdminJS para a base de dados gerenciada em [dcomp7/kurama-api](https://github.com/dcomp7/kurama-api).
+Projeto de uma área administrativa (Nodejs, React e AdminJS) para a base de dados gerenciada em [dcomp7/kurama-api](https://github.com/dcomp7/kurama-api).
 
 ## Contexto do projeto
 
