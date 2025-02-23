@@ -1,7 +1,7 @@
-import Sequelize from 'sequelize';
-import databaseConfig from '../config/database.js';
+import Sequelize from "sequelize";
+import databaseConfig from "../config/database.js";
 
-import models from 'kurama-api/src/app/models/index.js';
+import models from "kurama-api/src/app/models/index.js";
 
 class Database {
   constructor() {
@@ -11,9 +11,9 @@ class Database {
   }
 
   init() {
-    models.forEach((model) => {
-      model.init(this.connection);
-    });
+    for (let key in models) {
+      models[key].init(this.connection);
+    }
   }
 
   associate() {
