@@ -7,6 +7,7 @@
   "dependencies": {
     "@adminjs/express": "^6.1.1",
     "@adminjs/sequelize": "^4.1.1",
+    "@adminjs/upload": "^4.0.2",
     "@babel/core": "^7.23.9",
     "@babel/node": "^7.26.0",
     "@babel/parser": "^7.23.9",
@@ -16,6 +17,7 @@
     "@babel/preset-react": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",
     "@babel/register": "^7.23.7",
+    "@google-cloud/storage": "^7.15.2",
     "adminjs": "^7.8.15",
     "axios": "^1.7.9",
     "cors": "^2.8.5",

@@ -7,9 +7,10 @@ import AdminJSSequelize from "@adminjs/sequelize";
 import pt_BR from "./locale/index.js";
 import express from "express";
 import UsersResource from "./resources/UsersResource.js";
+import CmsResource from "./resources/CmsResource.js";
 
 import Customer from "kurama-api/src/app/models/Customer.js";
-import Cms from "kurama-api/src/app/models/Cms.js";
+
 import Order from "kurama-api/src/app/models/Order.js";
 import OrderItem from "kurama-api/src/app/models/OrderItem.js";
 import OrderInvoice from "kurama-api/src/app/models/OrderInvoice.js";
@@ -35,7 +36,7 @@ const admin = new AdminJS({
   rootPath: "/admin",
   resources: [
     UsersResource,
-    { resource: Cms },
+    CmsResource,
     { resource: Trip },
     { resource: Product },
     { resource: Category },
@@ -49,7 +50,7 @@ const admin = new AdminJS({
   },
   cache: false,
   locale: {
-    language: "en",
+    language: "pt-BR",
     availableLanguages: ["en", "es", "pt-BR"],
     translations: {
       "pt-BR": pt_BR,
