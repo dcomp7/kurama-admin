@@ -4,10 +4,12 @@ import db from "./database/index.js";
 import AdminJS from "adminjs";
 import AdminJSExpress from "@adminjs/express";
 import AdminJSSequelize from "@adminjs/sequelize";
+import theme from "./theme.js";
 import pt_BR from "./locale/index.js";
 import express from "express";
 import UsersResource from "./resources/UsersResource.js";
 
+import User from "kurama-api/src/app/models/User.js";
 import Customer from "kurama-api/src/app/models/Customer.js";
 import Cms from "kurama-api/src/app/models/Cms.js";
 import Order from "kurama-api/src/app/models/Order.js";
@@ -46,10 +48,11 @@ const admin = new AdminJS({
     logo: false,
     softwareBrothers: false,
     withMadeWithLove: false,
+    theme,
   },
   cache: false,
   locale: {
-    language: "en",
+    language: "pt-BR",
     availableLanguages: ["en", "es", "pt-BR"],
     translations: {
       "pt-BR": pt_BR,
@@ -57,8 +60,20 @@ const admin = new AdminJS({
   },
 });
 
-const adminRouter = AdminJSExpress.buildRouter(admin);
-app.use(admin.options.rootPath, adminRouter);
+const router = AdminJSExpress.buildAuthenticatedRouter(admin, {
+  authenticate: async (email, password) => {
+    const user = await User.findOne({ where: { email } });
+    if (user && (await user.checkPassword(password))) {
+      return user;
+    }
+    return null;
+  },
+  cookieName: "adminjs",
+  cookiePassword: process.env.COOKIE_SECRET,
+});
+
+//const adminRouter = AdminJSExpress.buildRouter(admin);
+app.use(admin.options.rootPath, router);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

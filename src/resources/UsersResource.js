@@ -1,7 +1,8 @@
-import User from "kurama-api/src/app/models/User.js";
+import UserModel from "kurama-api/src/app/models/User.js";
+import { hasAdminPermission } from "../services/auth.js";
 
 const UsersResource = {
-  resource: User,
+  resource: UserModel,
   options: {
     properties: {
       user_id: {
@@ -34,31 +35,8 @@ const UsersResource = {
       },
     },
     actions: {
-      new: {
-        before: async (request) => {
-          if (request.payload.password) {
-            request.payload = {
-              ...request.payload,
-              password_hash: await User.hashPassword(request.payload.password),
-              password: undefined,
-            };
-          }
-          return request;
-        },
-        label: "Novo",
-      },
-      edit: {
-        before: async (request) => {
-          if (request.payload.password) {
-            request.payload = {
-              ...request.payload,
-              password_hash: await User.hashPassword(request.payload.password),
-              password: undefined,
-            };
-          }
-          return request;
-        },
-        label: "Editar",
+      list: {
+        isAccessible: ({ currentAdmin }) => hasAdminPermission(currentAdmin),
       },
     },
   },
